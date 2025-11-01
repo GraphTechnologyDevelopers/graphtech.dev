@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.11tycache/
+.cache/
+.DS_Store
+
+

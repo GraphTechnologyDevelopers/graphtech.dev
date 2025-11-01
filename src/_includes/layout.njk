@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+<head>
+  {% include "partials/head.njk" %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  {% include "partials/header.njk" %}
+  <div class="global-noise" aria-hidden="true"></div>
+  <div class="global-glitch" aria-hidden="true"></div>
+  <main id="main" class="main">{{ content | safe }}</main>
+  {% include "partials/footer.njk" %}
+  <script type="module" src="/assets/js/search.js"></script>
+  <script type="module" src="/assets/js/glitch.js"></script>
+</body>
+</html>
+

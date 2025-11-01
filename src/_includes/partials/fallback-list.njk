@@ -1,0 +1,34 @@
+{% set typeOrder = [
+  { "key": "hub", "label": "Hub" },
+  { "key": "topic", "label": "Topics" },
+  { "key": "asset", "label": "Assets & Pages" },
+  { "key": "vendor", "label": "Vendors" },
+  { "key": "library", "label": "Libraries" },
+  { "key": "event", "label": "Events" }
+] %}
+
+{% for entry in typeOrder %}
+  <section class="fallback-group" aria-labelledby="fallback-{{ entry.key }}">
+    <h3 id="fallback-{{ entry.key }}">{{ entry.label }}</h3>
+    <ul>
+      {% for node in graphData.nodes %}
+        {% if node.type == entry.key %}
+          <li>
+            <a href="{{ node.href }}">{{ node.label }}</a>
+            {% if node.description %}
+              <p class="fallback-description">{{ node.description }}</p>
+            {% endif %}
+            {% if node.tags %}
+              <span class="tag-list">
+                {% for tag in node.tags %}
+                  <span class="tag">#{{ tag }}</span>
+                {% endfor %}
+              </span>
+            {% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </section>
+{% endfor %}
+

@@ -1,0 +1,32 @@
+{
+  "nodes": [
+    { "id": "hub", "label": "Graph Technology Developers", "type": "hub", "href": "/", "description": "Hands-on graph tech navigation.", "pinned": true, "tags": ["graphdatabases","knowledgegraphs","gnn"] },
+
+    { "id": "ext_community", "label": "Community on X", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Join the community feed." },
+    { "id": "ext_rules", "label": "Rules Thread", "type": "asset", "href": "https://x.com/bronzeagecto/status/1977502404041199995?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Pinned code-first rules." },
+    { "id": "spaces", "label": "Weekly Spaces", "type": "asset", "href": "/spaces/", "description": "Live session, 5PM PT / 8PM ET." },
+    { "id": "ext_hashtag", "label": "#KnowledgeGraphs", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612/hashtag/KnowledgeGraphs?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Track the community hashtag." },
+
+    { "id": "moderators", "label": "Moderators", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Meet the Graph Tech Devs mod team." },
+    { "id": "mod_bronzeagecto", "label": "@bronzeagecto", "type": "asset", "href": "https://x.com/bronzeagecto?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Community lead & host." },
+    { "id": "mod_money_illusion", "label": "@money_illusion", "type": "asset", "href": "https://x.com/money_illusion?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — graph systems." },
+    { "id": "mod_theogcb405", "label": "@theogcb405", "type": "asset", "href": "https://x.com/theogcb405?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — data pipelines." },
+    { "id": "mod_k0ncept", "label": "@k0ncept", "type": "asset", "href": "https://x.com/k0ncept?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — visualization." },
+
+    { "id": "ext_github", "label": "GitHub Repos", "type": "asset", "href": "https://github.com/GraphTechnologyDevelopers?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Code, datasets, snippets." }
+  ],
+  "links": [
+    { "source": "hub", "target": "ext_community", "kind": "relates" },
+    { "source": "hub", "target": "ext_rules", "kind": "relates" },
+    { "source": "hub", "target": "spaces", "kind": "belongsTo" },
+    { "source": "hub", "target": "ext_hashtag", "kind": "relates" },
+    { "source": "hub", "target": "moderators", "kind": "belongsTo" },
+    { "source": "hub", "target": "ext_github", "kind": "relates" },
+
+    { "source": "moderators", "target": "mod_bronzeagecto", "kind": "relates" },
+    { "source": "moderators", "target": "mod_money_illusion", "kind": "relates" },
+    { "source": "moderators", "target": "mod_theogcb405", "kind": "relates" },
+    { "source": "moderators", "target": "mod_k0ncept", "kind": "relates" }
+  ]
+}
+

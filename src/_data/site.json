@@ -1,0 +1,47 @@
+{
+  "title": "Graph Technology Developers",
+  "description": "Hands-on graph databases, knowledge graphs, and GNNs. Schemas, queries, datasets, and real-world modeling patterns—built by @bronzeagecto.",
+  "url": "https://graphtech.dev",
+  "handles": {
+    "personal": "@bronzeagecto"
+  },
+  "community": {
+    "name": "Graph Technology Developers (X Community)",
+    "searchTags": [
+      "graphdatabases",
+      "knowledgegraphs",
+      "gnn",
+      "graphmachinelearning",
+      "graphmodeling",
+      "propertygraph",
+      "cypher",
+      "gqlstandard",
+      "rdf",
+      "sparql"
+    ],
+    "pinnedHashtags": [
+      "#GraphDatabases",
+      "#KnowledgeGraphs",
+      "#GNN",
+      "#Cypher",
+      "#GraphTechDevs"
+    ]
+  },
+  "branding": {
+    "colors": {
+      "background": "#0A0D16",
+      "text": "#EBF0F5",
+      "subtext": "#78889C",
+      "accent": "#C08A3E"
+    },
+    "radius": 8,
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 12,
+      "lg": 16,
+      "xl": 24
+    }
+  }
+}
+

@@ -1,0 +1,112 @@
+---
+layout: layout.njk
+title: Graph Technology Developers
+description: Hands-on graph databases, knowledge graphs, and GNNs. Schemas, queries, datasets, and real-world modeling patterns—built by {{ site.handles.personal }}.
+permalink: /
+---
+
+<div class="graph-container" data-graph-root>
+  <div class="graph-noise" aria-hidden="true"></div>
+  <div class="graph-glyphs" aria-hidden="true"></div>
+  <div class="graph-controls">
+    <div class="graph-filter">
+      <label for="graph-filter-input">Filter nodes</label>
+      <input id="graph-filter-input" name="graph-filter" type="search" placeholder="Search topics, vendors, resources…" autocomplete="off">
+    </div>
+    <div class="legend" aria-label="Graph legend" role="group">
+      {% include "partials/legend.njk" %}
+    </div>
+  </div>
+  <svg class="graph-svg" role="img" aria-label="Graph navigation for Graph Technology Developers"></svg>
+  <div class="graph-tooltip" role="status" aria-live="polite" hidden>
+    <div class="graph-tooltip__label"></div>
+    <div class="graph-tooltip__description"></div>
+  </div>
+  <div class="graph-fallback" aria-hidden="true"></div>
+</div>
+
+<section class="hero hero--cta">
+  <span class="hero__badge">// join the graph</span>
+  <h2>Deploy your graph brain in the X Community</h2>
+  <p>Threads, pulses, and data drops daily. Share schemas, queries, datasets, and benchmarks. Get real-time feedback from Graph Technology Developers across the everything app.</p>
+  <a class="btn-primary" href="https://x.com/i/communities/1977449294861881612" target="_blank" rel="noopener">Join the X community</a>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Graph Technology Developers",
+  "url": "{{ site.url }}/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ site.url }}/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Graph Technology Developers",
+    "sameAs": [
+      "https://x.com/bronzeagecto",
+      "https://x.com/i/communities/1977449294861881612",
+      "https://github.com/GraphTechnologyDevelopers"
+    ]
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "SiteNavigationElement",
+        "position": 1,
+        "name": "Home",
+        "url": "{{ site.url }}/"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 2,
+        "name": "Community",
+        "url": "https://x.com/i/communities/1977449294861881612"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 3,
+        "name": "Rules",
+        "url": "https://x.com/bronzeagecto/status/1977502404041199995"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 4,
+        "name": "Spaces",
+        "url": "{{ site.url }}/spaces/"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 5,
+        "name": "Knowledge Graphs",
+        "url": "https://x.com/i/communities/1977449294861881612/hashtag/KnowledgeGraphs"
+      }
+    ]
+  }
+}
+</script>
+
+<noscript>
+  <div class="fallback-groups">
+    <section class="fallback-group">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="/">Graph Technology Developers</a><p class="fallback-description">Hands-on graph tech navigation.</p></li>
+        <li><a href="https://x.com/i/communities/1977449294861881612">Community on X</a><p class="fallback-description">Join the community feed.</p></li>
+        <li><a href="https://x.com/bronzeagecto/status/1977502404041199995">Rules Thread</a><p class="fallback-description">Pinned code-first rules.</p></li>
+        <li><a href="/spaces/">Weekly Spaces</a><p class="fallback-description">Live session every week, 5PM PT / 8PM ET.</p></li>
+        <li><a href="https://x.com/i/communities/1977449294861881612/hashtag/KnowledgeGraphs">#KnowledgeGraphs</a><p class="fallback-description">Track the hashtag in the X Community.</p></li>
+        <li><a href="https://x.com/i/communities/1977449294861881612">Moderators</a><p class="fallback-description">Meet the Graph Tech Devs mod team.</p></li>
+        <li><a href="https://x.com/bronzeagecto">@bronzeagecto</a></li>
+        <li><a href="https://x.com/money_illusion">@money_illusion</a></li>
+        <li><a href="https://x.com/theogcb405">@theogcb405</a></li>
+        <li><a href="https://x.com/k0ncept">@k0ncept</a></li>
+      </ul>
+    </section>
+  </div>
+</noscript>
+
