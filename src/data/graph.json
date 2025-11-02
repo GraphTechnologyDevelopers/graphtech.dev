@@ -2,31 +2,62 @@
   "nodes": [
     { "id": "hub", "label": "Graph Technology Developers", "type": "hub", "href": "/", "description": "Hands-on graph tech navigation.", "pinned": true, "tags": ["graphdatabases","knowledgegraphs","gnn"] },
 
-    { "id": "ext_community", "label": "Community on X", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Join the community feed." },
-    { "id": "ext_rules", "label": "Rules Thread", "type": "asset", "href": "https://x.com/bronzeagecto/status/1977502404041199995?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Pinned code-first rules." },
-    { "id": "spaces", "label": "Weekly Spaces", "type": "asset", "href": "/spaces/", "description": "Live session, 5PM PT / 8PM ET." },
-    { "id": "ext_hashtag", "label": "#KnowledgeGraphs", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612/hashtag/KnowledgeGraphs?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Track the community hashtag." },
+    { "id": "ext_community", "label": "Community on X", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Join the community feed.", "tags": ["x"] },
+    { "id": "ext_rules", "label": "Rules", "type": "asset", "href": "https://x.com/bronzeagecto/status/1977502404041199995?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Pinned code-first rules.", "tags": ["x"] },
+    { "id": "spaces", "label": "Weekly Spaces", "type": "asset", "href": "/spaces/", "description": "Live session, 5PM PT / 8PM ET.", "tags": ["x"] },
+    { "id": "topics", "label": "Topics", "type": "topic", "href": "https://x.com/i/communities/1977449294861881612?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Community topics and hashtags.", "tags": ["x"] },
+    { "id": "hashtag_knowledgegraphs", "label": "#KnowledgeGraphs", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612/hashtag/KnowledgeGraphs?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Track the Knowledge Graphs hashtag.", "tags": ["x"] },
+    { "id": "hashtag_graphdatabases", "label": "#GraphDatabases", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612/hashtag/GraphDatabases?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Track the Graph Databases hashtag.", "tags": ["x"] },
+    { "id": "hashtag_gnn", "label": "#GNN", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612/hashtag/GNN?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Track the GNN hashtag.", "tags": ["x"] },
+    { "id": "hashtag_cypher", "label": "#Cypher", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612/hashtag/Cypher?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Track the Cypher hashtag.", "tags": ["x"] },
+    { "id": "hashtag_graphtechdevs", "label": "#GraphTechDevs", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612/hashtag/GraphTechDevs?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Track the GraphTechDevs hashtag.", "tags": ["x"] },
 
-    { "id": "moderators", "label": "Moderators", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Meet the Graph Tech Devs mod team." },
-    { "id": "mod_bronzeagecto", "label": "@bronzeagecto", "type": "asset", "href": "https://x.com/bronzeagecto?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Community lead & host." },
-    { "id": "mod_money_illusion", "label": "@money_illusion", "type": "asset", "href": "https://x.com/money_illusion?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — graph systems." },
-    { "id": "mod_theogcb405", "label": "@theogcb405", "type": "asset", "href": "https://x.com/theogcb405?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — data pipelines." },
-    { "id": "mod_k0ncept", "label": "@k0ncept", "type": "asset", "href": "https://x.com/k0ncept?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — visualization." },
+    { "id": "moderators", "label": "Moderators", "type": "asset", "href": "https://x.com/i/communities/1977449294861881612?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Meet the Graph Tech Devs mod team.", "tags": ["x"] },
+    { "id": "mod_bronzeagecto", "label": "@bronzeagecto", "type": "asset", "href": "https://x.com/bronzeagecto?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Community lead & host.", "tags": ["x"] },
+    { "id": "mod_money_illusion", "label": "@money_illusion", "type": "asset", "href": "https://x.com/money_illusion?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — graph systems.", "tags": ["x"] },
+    { "id": "mod_theogcb405", "label": "@theogcb405", "type": "asset", "href": "https://x.com/theogcb405?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — data pipelines.", "tags": ["x"] },
+    { "id": "mod_k0ncept", "label": "@k0ncept", "type": "asset", "href": "https://x.com/k0ncept?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — visualization.", "tags": ["x"] },
+    { "id": "mod_solcoindegen", "label": "@solcoindegen", "type": "asset", "href": "https://x.com/solcoindegen?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — Neo4j & GraphQL.", "tags": ["x"] },
+    { "id": "mod_drqsatoshin", "label": "@DrQSatoshin", "type": "asset", "href": "https://x.com/DrQSatoshin?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Moderator — recursive transformer models.", "tags": ["x"] },
 
-    { "id": "ext_github", "label": "GitHub Repos", "type": "asset", "href": "https://github.com/GraphTechnologyDevelopers?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Code, datasets, snippets." }
+    { "id": "ext_github", "label": "GitHub Org", "type": "asset", "href": "https://github.com/GraphTechnologyDevelopers?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Organization repositories and resources.", "tags": ["github"] },
+    { "id": "ext_github_members", "label": "Members", "type": "asset", "href": "https://github.com/orgs/GraphTechnologyDevelopers/people?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Organization members and contributors.", "tags": ["github"] },
+    { "id": "ext_github_repos", "label": "Repositories", "type": "asset", "href": "https://github.com/orgs/GraphTechnologyDevelopers/repositories?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Organization repositories.", "tags": ["github"] },
+    { "id": "ext_github_profile", "label": "@codegraphtheory", "type": "asset", "href": "https://github.com/codegraphtheory?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "GitHub profile with educational resources.", "tags": ["github"] },
+    { "id": "repo_graphtech_dev", "label": "graphtech.dev", "type": "asset", "href": "https://github.com/GraphTechnologyDevelopers/graphtech.dev?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Homepage for the Graph Technology Developers community.", "tags": ["github"] },
+    { "id": "repo_english_words", "label": "english-words-knowledge-graph", "type": "asset", "href": "https://github.com/GraphTechnologyDevelopers/english-words-knowledge-graph?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Knowledge graph of the English language between 1800 and 2019.", "tags": ["github"] },
+    { "id": "repo_gh_pages_template", "label": "gh-pages-template", "type": "asset", "href": "https://github.com/GraphTechnologyDevelopers/gh-pages-template?utm_source=hub&utm_medium=referral&utm_campaign=global_menu", "description": "Template repository for educational resources published to GitHub Pages.", "tags": ["github"] }
   ],
   "links": [
-    { "source": "hub", "target": "ext_community", "kind": "relates" },
-    { "source": "hub", "target": "ext_rules", "kind": "relates" },
-    { "source": "hub", "target": "spaces", "kind": "belongsTo" },
-    { "source": "hub", "target": "ext_hashtag", "kind": "relates" },
-    { "source": "hub", "target": "moderators", "kind": "belongsTo" },
-    { "source": "hub", "target": "ext_github", "kind": "relates" },
+    { "source": "hub", "target": "ext_community", "kind": "belongsTo" },
+    { "source": "hub", "target": "ext_github", "kind": "belongsTo" },
+
+    { "source": "ext_community", "target": "ext_rules", "kind": "belongsTo" },
+    { "source": "ext_community", "target": "spaces", "kind": "belongsTo" },
+    { "source": "ext_community", "target": "topics", "kind": "belongsTo" },
+    { "source": "ext_community", "target": "moderators", "kind": "belongsTo" },
+
+    { "source": "topics", "target": "hashtag_knowledgegraphs", "kind": "belongsTo" },
+    { "source": "topics", "target": "hashtag_graphdatabases", "kind": "belongsTo" },
+    { "source": "topics", "target": "hashtag_gnn", "kind": "belongsTo" },
+    { "source": "topics", "target": "hashtag_cypher", "kind": "belongsTo" },
+    { "source": "topics", "target": "hashtag_graphtechdevs", "kind": "belongsTo" },
+
+    { "source": "ext_github", "target": "ext_github_members", "kind": "belongsTo" },
+    { "source": "ext_github", "target": "ext_github_repos", "kind": "belongsTo" },
+
+    { "source": "ext_github_members", "target": "ext_github_profile", "kind": "belongsTo" },
+
+    { "source": "ext_github_repos", "target": "repo_graphtech_dev", "kind": "belongsTo" },
+    { "source": "ext_github_repos", "target": "repo_english_words", "kind": "belongsTo" },
+    { "source": "ext_github_repos", "target": "repo_gh_pages_template", "kind": "belongsTo" },
 
     { "source": "moderators", "target": "mod_bronzeagecto", "kind": "relates" },
     { "source": "moderators", "target": "mod_money_illusion", "kind": "relates" },
     { "source": "moderators", "target": "mod_theogcb405", "kind": "relates" },
-    { "source": "moderators", "target": "mod_k0ncept", "kind": "relates" }
+    { "source": "moderators", "target": "mod_k0ncept", "kind": "relates" },
+    { "source": "moderators", "target": "mod_solcoindegen", "kind": "relates" },
+    { "source": "moderators", "target": "mod_drqsatoshin", "kind": "relates" }
   ]
 }
 

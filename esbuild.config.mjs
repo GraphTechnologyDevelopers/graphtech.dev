@@ -12,7 +12,7 @@ async function prepareOutDir() {
 }
 
 const baseConfig = {
-  entryPoints: ['src/js/graph.ts', 'src/js/search.ts', 'src/js/analytics.ts'],
+  entryPoints: ['src/js/graph.ts', 'src/js/search.ts', 'src/js/analytics.ts', 'src/js/glitch.ts'],
   outdir,
   bundle: true,
   sourcemap: true,
@@ -28,6 +28,7 @@ const baseConfig = {
     'process.env.NODE_ENV': JSON.stringify(watch ? 'development' : 'production'),
   },
   minify: !watch,
+  entryNames: '[name]',
 };
 
 async function writeMetaFile(metafile) {
@@ -53,6 +54,7 @@ async function runBuild() {
       splitting: true,
       chunkNames: 'chunks/[name]-[hash]',
       metafile: true,
+      entryNames: '[name]',
       loader: {
         '.json': 'json',
       },

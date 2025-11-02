@@ -1,0 +1,26 @@
+{% macro renderNodeList(nodes, parentId, graphData) %}
+  {% set children = [] %}
+  {% for link in graphData.links %}
+    {% if link.source === parentId and (link.kind === 'belongsTo' or link.kind === 'relates') %}
+      {% for node in nodes %}
+        {% if node.id === link.target %}
+          {% set children = (children.push(node), children) %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+
+  {% if children.length > 0 %}
+    <ul class="nodes-list__nested">
+      {% for node in children %}
+        {% set depth = node.id | getNodeDepth(graphData) %}
+        <li class="nodes-list__item" data-depth="{{ depth }}">
+          <a href="{{ node.href }}" {% if node.href | isExternalLink %}target="_blank" rel="noopener"{% endif %}>{{ node.label }}</a>
+          {% if node.description %}<p class="nodes-list__description">{{ node.description }}</p>{% endif %}
+          {{ renderNodeList(nodes, node.id, graphData) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+

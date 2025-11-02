@@ -4,6 +4,18 @@ title: Graph Technology Developers
 description: Hands-on graph databases, knowledge graphs, and GNNs. Schemas, queries, datasets, and real-world modeling patterns—built by {{ site.handles.personal }}.
 permalink: /
 ---
+{% import "macros/renderNodeList.njk" as renderNodeList %}
+
+<section class="hero hero--cta">
+  <span class="hero__badge">// join the graph</span>
+  <h2>Develop your graph brain in the X Community</h2>
+  <p>Threads, pulses, and data drops daily. Share schemas, queries, datasets, and benchmarks. Get real-time feedback from Graph Technology Developers across the everything app.</p>
+  <div class="hero__cta-group">
+    <a class="btn-primary" href="https://x.com/i/communities/1977449294861881612" target="_blank" rel="noopener">Join the X community</a>
+    <a class="btn-secondary" href="https://github.com/GraphTechnologyDevelopers" target="_blank" rel="noopener">Explore GitHub Org</a>
+    <a class="btn-secondary" href="https://github.com/codegraphtheory" target="_blank" rel="noopener">Follow @codegraphtheory</a>
+  </div>
+</section>
 
 <div class="graph-container" data-graph-root>
   <div class="graph-noise" aria-hidden="true"></div>
@@ -25,11 +37,54 @@ permalink: /
   <div class="graph-fallback" aria-hidden="true"></div>
 </div>
 
-<section class="hero hero--cta">
-  <span class="hero__badge">// join the graph</span>
-  <h2>Deploy your graph brain in the X Community</h2>
-  <p>Threads, pulses, and data drops daily. Share schemas, queries, datasets, and benchmarks. Get real-time feedback from Graph Technology Developers across the everything app.</p>
-  <a class="btn-primary" href="https://x.com/i/communities/1977449294861881612" target="_blank" rel="noopener">Join the X community</a>
+<section class="nodes-list" id="resources">
+  <h2>All Resources</h2>
+  <div class="nodes-list__content">
+    <div class="nodes-list__group">
+      <h3>X Community</h3>
+      {% set xHub = graphData.nodes | findNodeById('ext_community') %}
+      {% if xHub %}
+        <ul>
+          {% set depth = xHub.id | getNodeDepth(graphData) %}
+          <li class="nodes-list__item" data-depth="{{ depth }}">
+            <a href="{{ xHub.href }}" {% if xHub.href | isExternalLink %}target="_blank" rel="noopener"{% endif %}>{{ xHub.label }}</a>
+            {% if xHub.description %}<p class="nodes-list__description">{{ xHub.description }}</p>{% endif %}
+            {{ renderNodeList.renderNodeList(graphData.nodes, xHub.id, graphData) }}
+          </li>
+        </ul>
+      {% endif %}
+    </div>
+    
+    <div class="nodes-list__group">
+      <h3>GitHub</h3>
+      {% set githubHub = graphData.nodes | findNodeById('ext_github') %}
+      {% if githubHub %}
+        <ul>
+          {% set depth = githubHub.id | getNodeDepth(graphData) %}
+          <li class="nodes-list__item" data-depth="{{ depth }}">
+            <a href="{{ githubHub.href }}" {% if githubHub.href | isExternalLink %}target="_blank" rel="noopener"{% endif %}>{{ githubHub.label }}</a>
+            {% if githubHub.description %}<p class="nodes-list__description">{{ githubHub.description }}</p>{% endif %}
+            {{ renderNodeList.renderNodeList(graphData.nodes, githubHub.id, graphData) }}
+          </li>
+        </ul>
+      {% endif %}
+    </div>
+    
+    <div class="nodes-list__group">
+      <h3>Hub</h3>
+      <ul>
+        {% for node in graphData.nodes %}
+          {% if not node.tags or ("x" not in node.tags and "github" not in node.tags) %}
+          {% set depth = node.id | getNodeDepth(graphData) %}
+          <li class="nodes-list__item" data-depth="{{ depth }}">
+            <a href="{{ node.href }}" {% if node.href | isExternalLink %}target="_blank" rel="noopener"{% endif %}>{{ node.label }}</a>
+            {% if node.description %}<p class="nodes-list__description">{{ node.description }}</p>{% endif %}
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 </section>
 
 <script type="application/ld+json">
@@ -49,7 +104,8 @@ permalink: /
     "sameAs": [
       "https://x.com/bronzeagecto",
       "https://x.com/i/communities/1977449294861881612",
-      "https://github.com/GraphTechnologyDevelopers"
+      "https://github.com/GraphTechnologyDevelopers",
+      "https://github.com/codegraphtheory"
     ]
   },
   "mainEntity": {
@@ -100,6 +156,8 @@ permalink: /
         <li><a href="https://x.com/bronzeagecto/status/1977502404041199995">Rules Thread</a><p class="fallback-description">Pinned code-first rules.</p></li>
         <li><a href="/spaces/">Weekly Spaces</a><p class="fallback-description">Live session every week, 5PM PT / 8PM ET.</p></li>
         <li><a href="https://x.com/i/communities/1977449294861881612/hashtag/KnowledgeGraphs">#KnowledgeGraphs</a><p class="fallback-description">Track the hashtag in the X Community.</p></li>
+        <li><a href="https://github.com/GraphTechnologyDevelopers">GitHub Organization</a><p class="fallback-description">Organization repositories and resources.</p></li>
+        <li><a href="https://github.com/codegraphtheory">@codegraphtheory</a><p class="fallback-description">GitHub profile with educational resources.</p></li>
         <li><a href="https://x.com/i/communities/1977449294861881612">Moderators</a><p class="fallback-description">Meet the Graph Tech Devs mod team.</p></li>
         <li><a href="https://x.com/bronzeagecto">@bronzeagecto</a></li>
         <li><a href="https://x.com/money_illusion">@money_illusion</a></li>

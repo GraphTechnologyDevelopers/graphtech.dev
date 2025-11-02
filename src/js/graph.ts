@@ -84,9 +84,9 @@ const TYPE_FORCE_TARGETS: Record<NodeType, number> = {
 };
 
 const LINK_DISTANCE: Record<LinkKind, number> = {
-  belongsTo: 250,
-  relates: 320,
-  poweredBy: 380,
+  belongsTo: 180,
+  relates: 240,
+  poweredBy: 300,
 };
 
 const NODE_COLORS: Record<NodeType, string> = {
@@ -236,7 +236,7 @@ export async function initGraph(containerSelector: string, dataUrl: string): Pro
   for (let i = 0; i < data.nodes.length; i += 1) {
     const node = data.nodes[i];
     const radius = NODE_RADIUS[node.type] ?? 9;
-    const chargeStrength = node.type === 'hub' ? -160 : -60;
+    const chargeStrength = node.type === 'hub' ? -200 : -80;
     let customColor: string | undefined;
     switch (node.id) {
       case 'ext_community':
@@ -267,6 +267,24 @@ export async function initGraph(containerSelector: string, dataUrl: string): Pro
         customColor = '#ef476f';
         break;
       case 'ext_github':
+        customColor = '#71d5ff';
+        break;
+      case 'ext_github_members':
+        customColor = '#4db8ff';
+        break;
+      case 'ext_github_repos':
+        customColor = '#4db8ff';
+        break;
+      case 'ext_github_profile':
+        customColor = '#71d5ff';
+        break;
+      case 'repo_graphtech_dev':
+        customColor = '#71d5ff';
+        break;
+      case 'repo_english_words':
+        customColor = '#71d5ff';
+        break;
+      case 'repo_gh_pages_template':
         customColor = '#71d5ff';
         break;
       default:
@@ -313,11 +331,13 @@ export async function initGraph(containerSelector: string, dataUrl: string): Pro
   const fallback = container.select<HTMLDivElement>('.graph-fallback');
   const filterInput = container.select<HTMLInputElement>('#graph-filter-input');
   const legendButtons = container.selectAll<HTMLButtonElement, null>('button[data-legend-filter]');
+  const tagFilterButtons = container.selectAll<HTMLButtonElement, null>('button[data-tag-filter]');
   const legendResetButton = container.select<HTMLButtonElement>('[data-legend-reset]');
   let activeLegendTypes: Record<NodeType, boolean> | null = null;
+  let activeTags: Record<string, boolean> = { x: true, github: true };
 
   const width = (rootElement as HTMLElement).clientWidth - 40;
-  const height = 560;
+  const height = 720;
 
   svg.attr('viewBox', `0 0 ${width} ${height}`);
   svg.style('background', 'transparent');
@@ -446,33 +466,191 @@ export async function initGraph(containerSelector: string, dataUrl: string): Pro
 
   const startTime = performance.now();
 
+  const nodesMap: Record<string, GraphNode> = {};
+  for (let i = 0; i < nodes.length; i += 1) {
+    nodesMap[nodes[i].id] = nodes[i];
+  }
+
+  const parentMap: Record<string, string> = {};
+  const childrenMap: Record<string, string[]> = {};
+  const depthMap: Record<string, number> = {};
+  
+  for (let i = 0; i < links.length; i += 1) {
+    const link = links[i];
+    const sourceId = typeof link.source === 'string' ? link.source : link.source.id;
+    const targetId = typeof link.target === 'string' ? link.target : link.target.id;
+    
+    if (link.kind === 'belongsTo') {
+      parentMap[targetId] = sourceId;
+      if (!childrenMap[sourceId]) {
+        childrenMap[sourceId] = [];
+      }
+      childrenMap[sourceId].push(targetId);
+    }
+  }
+
+  function calculateDepth(nodeId: string): number {
+    if (depthMap[nodeId] !== undefined) {
+      return depthMap[nodeId];
+    }
+    const parentId = parentMap[nodeId];
+    if (!parentId) {
+      depthMap[nodeId] = 0;
+      return 0;
+    }
+    depthMap[nodeId] = calculateDepth(parentId) + 1;
+    return depthMap[nodeId];
+  }
+
+  for (let i = 0; i < nodes.length; i += 1) {
+    calculateDepth(nodes[i].id);
+  }
+
+  const siblingGroups: Record<string, string[]> = {};
+  for (const parentId in childrenMap) {
+    siblingGroups[parentId] = childrenMap[parentId];
+  }
+
+  function hierarchicalClusterForce(alpha: number): void {
+    for (const parentId in childrenMap) {
+      const parent = nodesMap[parentId];
+      const children = childrenMap[parentId];
+      if (!parent || !children || children.length === 0 || parent.x === undefined || parent.y === undefined) continue;
+      
+      const parentX = parent.x;
+      const parentY = parent.y;
+      const parentDepth = depthMap[parentId] ?? 0;
+      const childDepth = parentDepth + 1;
+      const depthMultiplier = Math.min(1.5, 1 + childDepth * 0.2);
+      const targetDistance = LINK_DISTANCE.belongsTo * depthMultiplier * 0.85;
+      
+      for (let i = 0; i < children.length; i += 1) {
+        const child = nodesMap[children[i]];
+        if (!child || child.x === undefined || child.y === undefined) continue;
+        
+        const dx = child.x - parentX;
+        const dy = child.y - parentY;
+        const distance = Math.sqrt(dx * dx + dy * dy) || 1;
+        const force = (distance - targetDistance) * alpha * 0.5;
+        
+        if (child.vx !== undefined && child.vy !== undefined) {
+          child.vx += (dx / distance) * force;
+          child.vy += (dy / distance) * force;
+        }
+      }
+    }
+  }
+
+  function siblingSeparationForce(alpha: number): void {
+    for (const parentId in siblingGroups) {
+      const siblings = siblingGroups[parentId];
+      if (!siblings || siblings.length < 2) continue;
+      
+      for (let i = 0; i < siblings.length; i += 1) {
+        const nodeA = nodesMap[siblings[i]];
+        if (!nodeA || nodeA.x === undefined || nodeA.y === undefined) continue;
+        
+        for (let j = i + 1; j < siblings.length; j += 1) {
+          const nodeB = nodesMap[siblings[j]];
+          if (!nodeB || nodeB.x === undefined || nodeB.y === undefined) continue;
+          
+          const dx = nodeB.x - nodeA.x;
+          const dy = nodeB.y - nodeA.y;
+          const distance = Math.sqrt(dx * dx + dy * dy) || 1;
+          const minDistance = LINK_DISTANCE.relates * 1.8;
+          
+          if (distance < minDistance && nodeA.vx !== undefined && nodeA.vy !== undefined && nodeB.vx !== undefined && nodeB.vy !== undefined) {
+            const force = (minDistance - distance) * alpha * 1.2;
+            const fx = (dx / distance) * force;
+            const fy = (dy / distance) * force;
+            
+            nodeA.vx -= fx;
+            nodeA.vy -= fy;
+            nodeB.vx += fx;
+            nodeB.vy += fy;
+          }
+        }
+      }
+    }
+  }
+
+  function radialArrangementForce(alpha: number): void {
+    for (const parentId in childrenMap) {
+      const parent = nodesMap[parentId];
+      const children = childrenMap[parentId];
+      if (!parent || !children || children.length < 2 || parent.x === undefined || parent.y === undefined) continue;
+      
+      const parentX = parent.x;
+      const parentY = parent.y;
+      const parentDepth = depthMap[parentId] ?? 0;
+      const childDepth = parentDepth + 1;
+      const depthMultiplier = Math.max(0.4, 1.5 - childDepth * 0.3);
+      const angleStep = (Math.PI * 2) / children.length;
+      const radius = LINK_DISTANCE.belongsTo * depthMultiplier * 0.8;
+      
+      for (let i = 0; i < children.length; i += 1) {
+        const child = nodesMap[children[i]];
+        if (!child || child.x === undefined || child.y === undefined || child.vx === undefined || child.vy === undefined) continue;
+        
+        const targetAngle = angleStep * i;
+        const targetX = parentX + Math.cos(targetAngle) * radius;
+        const targetY = parentY + Math.sin(targetAngle) * radius;
+        
+        const dx = targetX - child.x;
+        const dy = targetY - child.y;
+        const force = alpha * 0.3;
+        
+        child.vx += dx * force;
+        child.vy += dy * force;
+      }
+    }
+  }
+
   const simulation: Simulation<GraphNode, GraphLink> = forceSimulation(nodes)
     .force(
       'link',
       forceLink<GraphNode, GraphLink>(links)
         .id((d) => d.id)
-        .distance((link) => LINK_DISTANCE[link.kind])
-        .strength(0.65),
+        .distance((link) => {
+          if (link.kind === 'belongsTo') {
+            const sourceId = typeof link.source === 'string' ? link.source : (link.source as GraphNode).id;
+            const targetId = typeof link.target === 'string' ? link.target : (link.target as GraphNode).id;
+            const sourceDepth = depthMap[sourceId] ?? 0;
+            const targetDepth = depthMap[targetId] ?? 0;
+            const childDepth = Math.max(sourceDepth, targetDepth);
+            const depthMultiplier = Math.max(0.4, 1.5 - childDepth * 0.3);
+            return LINK_DISTANCE.belongsTo * depthMultiplier;
+          }
+          return LINK_DISTANCE[link.kind];
+        })
+        .strength((link) => {
+          return link.kind === 'belongsTo' ? 1.0 : 0.75;
+        }),
     )
     .force(
       'charge',
       forceManyBody<GraphNode>().strength((d) => {
         if (typeof d.chargeStrength === 'number') {
-          return d.chargeStrength * 2.2;
+          return d.chargeStrength * 1.5;
         }
-        return -160;
+        return -150;
       }),
     )
     .force('center', forceCenter(width / 2, height / 2))
-    .force('collision', forceCollide().radius((d) => (d.radius ?? 10) + (shouldReduceMotion ? 18 : 28)).strength(shouldReduceMotion ? 1 : 1.5))
-    .force('x', forceX(width / 2).strength(0.008))
-    .force('y', forceY(height / 2).strength(0.008))
+    .force('collision', forceCollide().radius((d) => (d.radius ?? 10) + (shouldReduceMotion ? 25 : 40)).strength(shouldReduceMotion ? 1 : 1.5))
+    .force('x', forceX(width / 2).strength(0.006))
+    .force('y', forceY(height / 2).strength(0.006))
     .alphaDecay(shouldReduceMotion ? 0.08 : 0.04);
 
   simulation
     .force('type-position', forceY<GraphNode>().strength(0.035).y((d) => TYPE_FORCE_TARGETS[d.type] ?? height / 2));
- 
-  simulation.on('tick', () => {
+
+  simulation.on('tick', function() {
+    const alpha = this.alpha();
+    hierarchicalClusterForce(alpha);
+    siblingSeparationForce(alpha);
+    radialArrangementForce(alpha);
+    
     const elapsed = performance.now() - startTime;
     for (let i = 0; i < nodes.length; i += 1) {
       const node = nodes[i];
@@ -527,11 +705,6 @@ export async function initGraph(containerSelector: string, dataUrl: string): Pro
       return `translate(${x},${y}) rotate(${rotation * (180 / Math.PI)})`;
     });
   });
-
-  const nodesMap: Record<string, GraphNode> = {};
-  for (let i = 0; i < nodes.length; i += 1) {
-    nodesMap[nodes[i].id] = nodes[i];
-  }
 
   const neighborsMap: Record<string, string[]> = {};
   for (let i = 0; i < links.length; i += 1) {
@@ -620,9 +793,36 @@ export async function initGraph(containerSelector: string, dataUrl: string): Pro
     for (let i = 0; i < nodes.length; i += 1) {
       const node = nodes[i];
       let visible = true;
+      
+      // Always show pinned nodes (like the hub)
+      if (node.pinned) {
+        filteredNodes[node.id] = true;
+        continue;
+      }
+      
       if (!legendState[node.type]) {
         visible = false;
       }
+      
+      if (visible && Object.keys(activeTags).length > 0) {
+        const hasActiveTag = Object.keys(activeTags).some((tag) => activeTags[tag]);
+        if (hasActiveTag) {
+          if (node.tags && node.tags.length > 0) {
+            let tagMatch = false;
+            for (let t = 0; t < node.tags.length; t += 1) {
+              const tag = node.tags[t];
+              if (activeTags[tag]) {
+                tagMatch = true;
+                break;
+              }
+            }
+            if (!tagMatch) {
+              visible = false;
+            }
+          }
+        }
+      }
+      
       if (visible && term.length > 0) {
         const labelMatch = node.label.toLowerCase().includes(term);
         let tagMatch = false;
@@ -770,13 +970,42 @@ export async function initGraph(containerSelector: string, dataUrl: string): Pro
     updateVisibility();
   });
 
+  tagFilterButtons.on('click', function () {
+    const button = select(this);
+    const tag = button.attr('data-tag-filter');
+    if (!tag) {
+      return;
+    }
+    activeTags[tag] = !activeTags[tag];
+    button.attr('aria-pressed', activeTags[tag] ? 'true' : 'false');
+    button.classed('legend__pill--inactive', !activeTags[tag]);
+    updateVisibility();
+  });
+
+  function updateTagButtons(): void {
+    tagFilterButtons.each(function () {
+      const button = select(this);
+      const tag = button.attr('data-tag-filter');
+      if (!tag) {
+        return;
+      }
+      const enabled = activeTags[tag] ?? true;
+      button.attr('aria-pressed', enabled ? 'true' : 'false');
+      button.classed('legend__pill--inactive', !enabled);
+    });
+  }
+
+  updateTagButtons();
+
   if (!legendResetButton.empty()) {
     legendResetButton.on('click', () => {
       const legendState = getLegendState();
       for (let i = 0; i < LEGEND_ORDER.length; i += 1) {
         legendState[LEGEND_ORDER[i]] = true;
       }
+      activeTags = { x: true, github: true };
       updateLegendButtons(legendState);
+      updateTagButtons();
       updateVisibility();
     });
   }
@@ -806,5 +1035,5 @@ export async function initGraph(containerSelector: string, dataUrl: string): Pro
   updateVisibility();
 }
 
-const LEGEND_ORDER: NodeType[] = ['hub', 'asset'];
+const LEGEND_ORDER: NodeType[] = ['hub', 'topic', 'asset'];
 

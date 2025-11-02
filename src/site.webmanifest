@@ -1,0 +1,27 @@
+{
+  "name": "Graph Technology Developers",
+  "short_name": "GraphTechDevs",
+  "description": "Hands-on graph databases, knowledge graphs, and GNNs",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0D16",
+  "theme_color": "#0A0D16",
+  "icons": [
+    {
+      "src": "/assets/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/apple-touch-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
+

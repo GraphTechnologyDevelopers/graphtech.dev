@@ -1,10 +1,15 @@
 {% set categories = {
   "hub": "Hub",
+  "topic": "Topics",
   "asset": "Destinations"
 } %}
 
 {% for key, label in categories %}
   <button type="button" class="legend__pill" data-legend-filter="{{ key }}" aria-pressed="true">{{ label }}</button>
 {% endfor %}
+
+<button type="button" class="legend__pill" data-tag-filter="x" aria-pressed="true">X</button>
+<button type="button" class="legend__pill" data-tag-filter="github" aria-pressed="true">GitHub</button>
+
 <button type="button" class="legend__pill legend__pill--reset" data-legend-reset aria-label="Show all nodes">Reset</button>
 
